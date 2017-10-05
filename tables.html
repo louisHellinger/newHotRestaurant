@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Hot Restraunts</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1><span class="glyphicon glyphicon-fire"></span>Hot Restaurant</h1>
+        <h3>Current Reservations and Waiting List</h3>
+        <hr>
+        <a href="/reserve"><button type="button" class="btn btn-primary btn-lg" id="reserve-btn><span class="glyphicon glyphicon-calendar"></span> Make Reservations</button></a>
+        <a href="/"><button type="button" class="btn btn-secondary btn-lg"><span class="glyphicon glyphicon-home"></span></button></a>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Current Reservations</strong></h3>
+            </div>
+            <div id= "reservation-list" class="panel-body">
+          <!--     <div class="well" id="tableWell-01">
+
+                <h2><span class="label label-primary">1</span> | 5556969</h2></div>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Waiting List</strong></h3>
+            </div>
+            <div id= "waitlist" class="panel-body">
+            </div>
+            <script type="text/javascript">
+
+
+
+            
+            $.get("/allReservations", function(data) {
+            console.log(data);
+            console.log(data.length);
+          
+
+          if (data) {
+            var counter = 0;
+
+           for (var i=0;i<data.length;i++) {
+
+            
+
+            //console.log("the counter is:" + counter);
+            //need to create a loop to display the list of reservations
+            var resNumber = i+1;
+
+            var displayRes = $("<div class='well'>");
+
+            var newH2 = $("<h2>");
+
+            var resCounter = $("<span class='label label-primary btn-lg'>");
+
+            resCounter.append(resNumber);
+
+            newH2.append(resCounter);
+
+            displayRes.append(newH2);
+            
+            newH2.append(" | " + data[i].id);
+
+          if (counter<5) {
+                counter ++;
+                //console.log("the counter is:" + counter);
+
+            $("#reservation-list").append(displayRes);
+
+          } else  {
+
+            
+            counter ++;
+            var newResNumber = resNumber - 5;
+            resCounter.html(newResNumber);
+            $("#waitlist").append(displayRes);
+
+
+          }
+
+
+            //<h2><span class="label label-primary">1</span> | 5556969</h2>
+
+            // $("#???").text(resNumber);
+            // $("#name").text(data[i].name);
+            // $("#phone").text(data[i].phone);
+            // $("#email").text(data[i].email);
+            // $("#uniqueid").text(data[i].uniqueid);
+          }
+            }
+            else {
+            $("#name").text("The force is not strong with this one. Your character was not found.");
+            $("#stats").hide();
+            }
+        
+            });
+
+            
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
